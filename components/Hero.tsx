@@ -2,15 +2,17 @@ import { Search } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { TextGenerateEffect } from "./ui/text-generate-effect";
 
 export default function Hero() {
   return (
     <div className="flex flex-col items-center justify-center gap-3 pb-7 pt-14">
-      <h2 className="text-center text-[46px] font-bold">
-        Find Home
-        <span className="text-primary"> Service/Repair</span>
-        <br></br> Near You
-      </h2>
+      {/* Title */}
+      <TextGenerateEffect
+        className="text-center text-[40px] md:text-3xl lg:text-5xl"
+        words="Discover Service for Your Heavenly Home"
+        duration={1}
+      />
       <h2 className="text-xl text-gray-400">
         Explore Best Home Service & Repair near you
       </h2>
