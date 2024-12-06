@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Havenly Services",
+  title: "Havenly Home",
   description:
     "From cleaning and maintenance to repairs and beyond, with our skills, build your heaven.",
 };
@@ -14,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="mx-6 md:mx-10">{children}</div>
+      </body>
     </html>
   );
 }
