@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { Outfit } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+
+const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Havenly Home",
@@ -14,8 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div className="mx-6 md:mx-10">{children}</div>
+      <body className={inter.className}>
+        <div className="mx-6 md:mx-10">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
