@@ -2,14 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface Category {
-  id: string;
-  name: string;
-  icon: {
-    url: string;
-  };
-}
-
 interface CategoryListProps {
   categoryList: Category[];
 }
@@ -22,7 +14,7 @@ function CategoryList({ categoryList }: CategoryListProps) {
             <Link
               href={"/search/" + category.name}
               key={index}
-              className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg bg-purple-50 p-5 transition-all ease-in-out hover:scale-110`}
+              className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg bg-blue-50 p-5 transition-all ease-in-out hover:scale-110`}
             >
               <Image
                 src={category.icon.url}
