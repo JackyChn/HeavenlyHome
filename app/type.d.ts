@@ -20,3 +20,7 @@ type BusinessList = {
   id: string;
   name: string;
 };
+
+type DescopeProfile = {
+  [key: string]: string;
+};

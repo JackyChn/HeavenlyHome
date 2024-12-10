@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { signIn } from "next-auth/react";
 
 export default function Header() {
   return (
@@ -26,7 +29,7 @@ export default function Header() {
         </div>
       </div>{" "}
       <div>
-        <Button>Get Started</Button>
+        <Button onClick={() => signIn("Google")}>Get Started</Button>
       </div>
     </div>
   );

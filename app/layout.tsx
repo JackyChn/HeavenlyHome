@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -18,12 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="mx-6 md:mx-10">
-          <Header />
-          {children}
-        </div>
-      </body>
+      <SessionProvider>
+        <body className={inter.className}>
+          <div className="mx-6 md:mx-10">
+            <Header />
+            {children}
+          </div>
+        </body>
+      </SessionProvider>
     </html>
   );
 }
