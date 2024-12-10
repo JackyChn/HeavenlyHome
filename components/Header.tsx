@@ -3,9 +3,21 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const { data: session } = useSession(); // Get session data
+  const router = useRouter();
+
+  const handleServiceClick = () => {
+    if (session) {
+      router.push("/homeService"); // Navigate if authenticated
+    } else {
+      router.push("/api/auth/signin"); // Redirect to login if not authenticated
+    }
+  };
+
   return (
     <div className="flex items-center justify-between border-b border-blue-100 p-5 shadow-sm">
       <div className="mx-4 flex items-center gap-8">
@@ -15,21 +27,37 @@ export default function Header() {
           width={50}
           height={50}
         />
-        {/* home service about */}
+        {/* Navigation buttons */}
         <div className="mx-6 hidden items-center gap-8 md:flex">
-          <h2 className="cursor-pointer hover:scale-110 hover:text-primary">
+          <button
+            onClick={() => router.push("/")}
+            className="cursor-pointer hover:scale-110 hover:text-primary"
+          >
             Home
-          </h2>
-          <h2 className="cursor-pointer hover:scale-110 hover:text-primary">
+          </button>
+          <button
+            onClick={handleServiceClick}
+            className="cursor-pointer hover:scale-110 hover:text-primary"
+          >
             Service
-          </h2>
-          <h2 className="cursor-pointer hover:scale-110 hover:text-primary">
+          </button>
+          <button
+            onClick={() => router.push("/about")}
+            className="cursor-pointer hover:scale-110 hover:text-primary"
+          >
             About
-          </h2>
+          </button>
         </div>
       </div>{" "}
+      {/* conditional render the login button / welcome message */}
       <div>
-        <Button onClick={() => signIn("Google")}>Get Started</Button>
+        {session ? (
+          <p className="text-sm text-gray-600">
+            Welcome, {session?.user?.name}
+          </p>
+        ) : (
+          <Button onClick={() => signIn("Google")}>Get Started</Button>
+        )}
       </div>
     </div>
   );
