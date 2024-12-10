@@ -6,6 +6,7 @@ import CategoryList from "@/components/CategoryList";
 import Hero from "@/components/Hero";
 import { getAllBusinessList, getCategory } from "./_services/GlobalApi";
 import BusinessList from "@/components/BusinessList";
+import Spinner from "@/components/ui/Spinner";
 
 export default function Home() {
   const { data: session, status } = useSession(); // Get session data
@@ -13,11 +14,9 @@ export default function Home() {
   const [businessList, setBusinessList] = useState([]);
 
   useEffect(() => {
-    if (status === "authenticated") {
-      getCategoryList();
-      getAllBusinessLists();
-    }
-  }, [status]);
+    getCategoryList();
+    getAllBusinessLists();
+  }, []);
 
   const getCategoryList = () => {
     getCategory().then((res) => {
@@ -32,16 +31,7 @@ export default function Home() {
     });
   };
 
-  if (status === "loading") return <p>Loading...</p>;
-
-  if (!session) {
-    return (
-      <div>
-        <p>You are not signed in.</p>
-        <button onClick={() => signIn()}>Sign in</button>
-      </div>
-    );
-  }
+  if (status === "loading") return <Spinner />;
 
   return (
     <div>
