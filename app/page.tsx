@@ -3,13 +3,13 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import CategoryList from "@/components/CategoryList";
-import Hero from "@/components/Hero";
 import { getAllBusinessList, getCategory } from "./_services/GlobalApi";
+import Hero from "@/components/Hero";
 import BusinessList from "@/components/BusinessList";
 import Spinner from "@/components/ui/Spinner";
 
 export default function Home() {
-  const { data: session, status } = useSession(); // Get session data
+  const { data: session, status } = useSession();
   const [categoryList, setCategoryList] = useState([]);
   const [businessList, setBusinessList] = useState([]);
 
@@ -26,7 +26,6 @@ export default function Home() {
 
   const getAllBusinessLists = () => {
     getAllBusinessList().then((res) => {
-      console.log(res.businessLists[0]);
       setBusinessList(res.businessLists);
     });
   };
