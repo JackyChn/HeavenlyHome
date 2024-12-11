@@ -12,7 +12,7 @@ function BusinessList({ businessList, title }: BusinessListProps) {
   return (
     <div className="mt-5">
       <h2 className="text-[22px] font-bold">{title}</h2>
-      <div className="mt-5 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-5 grid w-fit grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {businessList.length > 0
           ? businessList.map((business, index) => (
               <Link
@@ -41,7 +41,7 @@ function BusinessList({ businessList, title }: BusinessListProps) {
           : Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="h-[300px] w-full animate-pulse rounded-lg bg-slate-200"
+                className="h-[200px] w-full animate-pulse rounded-lg bg-slate-200"
               ></div>
             ))}
       </div>
