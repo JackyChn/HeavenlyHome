@@ -2,6 +2,9 @@ import { getBusinessByCategory } from "@/app/_services/GlobalApi";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import BookingSection from "@/components/ui/BookingSection";
+import { Button } from "./button";
+import { NotebookPen } from "lucide-react";
 
 function SuggestedBusinessList({ business }) {
   const [businessList, setBusinessList] = useState();
@@ -16,11 +19,17 @@ function SuggestedBusinessList({ business }) {
 
   return (
     <div className="md:pl-10">
+      <BookingSection business={business}>
+        <Button className="flex w-full gap-2">
+          <NotebookPen />
+          Book Appointment
+        </Button>
+      </BookingSection>
       <div className="hidden md:block">
         <h2 className="mb-3 mt-3 text-lg font-bold">Similar Business</h2>
         <div className="">
           {businessList &&
-            businessList.map((business, index) => (
+            businessList.map((business) => (
               <Link
                 key={business.address}
                 href={"/details/" + business.id}

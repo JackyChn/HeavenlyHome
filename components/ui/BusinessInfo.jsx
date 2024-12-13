@@ -16,7 +16,7 @@ function BusinessInfo({ business }) {
         />
         <div className="flex w-full items-center justify-between">
           <div className="mt-4 flex flex-col items-baseline gap-3 md:mt-0">
-            <h2 className="rounded-full bg-purple-100 p-1 px-3 text-lg text-primary">
+            <h2 className="rounded-full bg-blue-100 p-1 px-3 text-lg text-primary">
               {business?.category?.name}
             </h2>
             <h2 className="text-[40px] font-bold">{business.name}</h2>
