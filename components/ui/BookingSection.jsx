@@ -103,12 +103,10 @@ function BookingSection({ children, business }) {
         <SheetContent className="overflow-auto">
           <SheetHeader>
             <SheetTitle>Book an Service</SheetTitle>
-            <SheetDescription>
-              Select Date and Time slot to book an service
-              {/* Date Picker  */}
+            <SheetDescription as="div">
+              <div>Select Date and Time slot to book a service</div>
               <div className="flex flex-col items-baseline gap-5">
-                <h2 className="mt-5 font-bold">Select Date</h2>
-
+                <span className="mt-5 font-bold">Select Date</span>
                 <Calendar
                   mode="single"
                   selected={date}
@@ -116,20 +114,23 @@ function BookingSection({ children, business }) {
                   className="rounded-md border"
                 />
               </div>
-              {/* Time Slot Picker  */}
-              <h2 className="my-5 font-bold">Select Time Slot</h2>
-              <div className="grid grid-cols-3 gap-3">
-                {timeSlot.map((item, index) => (
-                  <Button
-                    key={index}
-                    disabled={isSlotBooked(item.time)}
-                    variant="outiline"
-                    className={`rounded-full border p-2 px-3 hover:bg-primary hover:text-white ${selectedTime == item.time && "bg-primary text-white"}`}
-                    onClick={() => setSelectedTime(item.time)}
-                  >
-                    {item.time}
-                  </Button>
-                ))}
+              <div>
+                <h2 className="my-5 font-bold">Select Time Slot</h2>
+                <div className="grid grid-cols-3 gap-3">
+                  {timeSlot.map((item, index) => (
+                    <Button
+                      key={index}
+                      disabled={isSlotBooked(item.time)}
+                      variant="outline"
+                      className={`rounded-full border p-2 px-3 hover:bg-primary hover:text-white ${
+                        selectedTime == item.time && "bg-primary text-white"
+                      }`}
+                      onClick={() => setSelectedTime(item.time)}
+                    >
+                      {item.time}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </SheetDescription>
           </SheetHeader>
