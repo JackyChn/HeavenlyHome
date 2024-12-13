@@ -6,6 +6,9 @@ import { Button } from "./ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { LogOut } from "lucide-react";
+import { signOut } from "@/lib/auth";
+import { signOutAction } from "@/app/_services/actions";
 
 export default function Header() {
   const { data: session } = useSession(); // Get session data
@@ -56,6 +59,10 @@ export default function Header() {
       <div>
         {session ? (
           <div className="flex flex-wrap items-center justify-center gap-2">
+            {" "}
+            <p className="text-sm text-gray-600">
+              Welcome, {session?.user?.name}
+            </p>
             <Image
               src={session?.user?.image || "/default-avatar.png"}
               className="rounded-full"
@@ -63,9 +70,14 @@ export default function Header() {
               width={30}
               height={30}
             />
-            <p className="text-sm text-gray-600">
-              Welcome, {session?.user?.name}
-            </p>
+            <form
+              action={signOutAction}
+              className="flex items-center justify-center"
+            >
+              <button onClick={() => signOut()} title="Log out">
+                <LogOut />
+              </button>
+            </form>
           </div>
         ) : (
           <Button onClick={() => signIn("Google")}>Get Started</Button>

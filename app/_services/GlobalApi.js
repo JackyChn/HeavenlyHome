@@ -73,3 +73,29 @@ export const getBusinessByCategory = async (category) => {
   const result = await request(MASTER_URL, query);
   return result;
 };
+
+export const getBusinessById = async (id) => {
+  const query =
+    gql`
+    query BusinessList {
+      businessList(where: { id: "` +
+    id +
+    `" }) {
+        about
+        address
+        category {
+          name
+        }
+        contactPerson
+        email
+        id
+        name
+        images {
+          url
+        }
+      }
+    }
+  `;
+  const result = await request(MASTER_URL, query);
+  return result;
+};
