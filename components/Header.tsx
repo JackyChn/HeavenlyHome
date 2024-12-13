@@ -55,9 +55,18 @@ export default function Header() {
       {/* conditional render the login button / welcome message */}
       <div>
         {session ? (
-          <p className="text-sm text-gray-600">
-            Welcome, {session?.user?.name}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Image
+              src={session?.user?.image || "/default-avatar.png"}
+              className="rounded-full"
+              alt="avatar"
+              width={30}
+              height={30}
+            />
+            <p className="text-sm text-gray-600">
+              Welcome, {session?.user?.name}
+            </p>
+          </div>
         ) : (
           <Button onClick={() => signIn("Google")}>Get Started</Button>
         )}
