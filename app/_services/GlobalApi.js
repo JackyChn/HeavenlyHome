@@ -151,3 +151,45 @@ export const BusinessBookedSlot = async (businessId, date) => {
   const result = await request(MASTER_URL, query);
   return result;
 };
+
+export const GetUserBookingHistory = async (userEmail) => {
+  const query =
+    gql`
+  query GetUserBookingHistory {
+    bookings(where: {userEmail: "` +
+    userEmail +
+    `"}
+    orderBy: publishedAt_DESC) {
+      businessList {
+        name
+        images {
+          url
+        }
+        contactPerson
+        address
+      }
+      date
+      time
+      id
+    }
+  }
+  `;
+  const result = await request(MASTER_URL, query);
+  return result;
+};
+
+export const deleteBooking = async (bookingId) => {
+  const mutationQuery = gql`
+    mutation DeleteBooking {
+      updateBooking(
+        data: { userName: "RRRS" }
+        where: { id: "${bookingId}" }
+      ) {
+        id
+      }
+    }
+  `;
+
+  const result = await request(MASTER_URL, mutationQuery);
+  return result;
+};

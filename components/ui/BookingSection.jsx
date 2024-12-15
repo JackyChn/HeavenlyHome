@@ -27,8 +27,6 @@ function BookingSection({ children, business }) {
   const [bookedSlot, setBookedSlot] = useState([]);
   const { data } = useSession();
 
-  console.log("business: ", business);
-
   useEffect(() => {
     getTime();
   }, []);
@@ -42,10 +40,6 @@ function BookingSection({ children, business }) {
         },
       );
   }, [business]);
-
-  /**
-   *
-   */
 
   const getTime = () => {
     const timeList = [];
@@ -77,9 +71,8 @@ function BookingSection({ children, business }) {
       data.user.email,
       data.user.name,
     ).then(
-      (resp) => {
-        console.log(resp);
-        if (resp) {
+      (res) => {
+        if (res) {
           setDate();
           setSelectedTime("");
           toast("Service Booked successfully!");
@@ -105,8 +98,7 @@ function BookingSection({ children, business }) {
             <SheetTitle>Book an Service</SheetTitle>
             <SheetDescription as="div">
               <div>Select Date and Time slot to book a service</div>
-              <div className="flex flex-col items-baseline gap-5">
-                <span className="mt-5 font-bold">Select Date</span>
+              <div className="mt-6 flex flex-col items-baseline gap-5">
                 <Calendar
                   mode="single"
                   selected={date}
