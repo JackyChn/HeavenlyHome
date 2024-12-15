@@ -100,6 +100,7 @@ export const getBusinessById = async (id) => {
   return result;
 };
 
+// Booking
 export const createNewBooking = async (
   businessId,
   date,
@@ -108,7 +109,7 @@ export const createNewBooking = async (
   userName,
 ) => {
   const mutation = gql`
-    mutation CreateBooking {
+    mutation MyMutation {
       createBooking(
         data: {
           bookingStatus: booked
@@ -130,8 +131,8 @@ export const createNewBooking = async (
 
 export const BusinessBookedSlot = async (businessId, date) => {
   const query = gql`
-    query BusinessBookedSlot {
-      bookings(where: { id: "${businessId}", date: "${date}" }) {
+    query MyQuery {
+      bookings(where: { businessList_every: { id: "${businessId}" }, date: "${date}" }) {
         date
         time
       }
@@ -143,12 +144,9 @@ export const BusinessBookedSlot = async (businessId, date) => {
 };
 
 export const GetUserBookingHistory = async (userEmail) => {
-  const query =
-    gql`
+  const query = gql`
   query GetUserBookingHistory {
-    bookings(where: {userEmail: "` +
-    userEmail +
-    `"}
+    bookings(where: {userEmail: "${userEmail}"}
     orderBy: publishedAt_DESC) {
       businessList {
         name

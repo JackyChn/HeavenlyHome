@@ -6,8 +6,8 @@ import BookingSection from "@/components/ui/BookingSection";
 import { Button } from "./button";
 import { NotebookPen } from "lucide-react";
 
-function SuggestedBusinessList({ business }) {
-  const [businessList, setBusinessList] = useState();
+function SuggestedBusinessList({ business }: { business: BusinessList }) {
+  const [businessList, setBusinessList] = useState<BusinessList[]>([]);
 
   useEffect(() => {
     if (business) {

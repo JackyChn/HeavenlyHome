@@ -3,7 +3,7 @@ import { Clock, Mail, MapPin, Share, User } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-function BusinessInfo({ business }) {
+function BusinessInfo({ business }: { business: BusinessList }) {
   return (
     business?.name && (
       <div className="items-center gap-4 md:flex">

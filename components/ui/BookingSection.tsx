@@ -19,29 +19,44 @@ import {
 import moment from "moment";
 import { toast } from "sonner";
 
-function BookingSection({ children, business }) {
-  const [date, setDate] = useState(new Date());
-  const [timeSlot, setTimeSlot] = useState([]);
-  const [selectedTime, setSelectedTime] = useState();
-  const [bookedSlot, setBookedSlot] = useState([]);
+interface Time {
+  time: string;
+}
+
+function BookingSection({
+  children,
+  business,
+}: {
+  children: React.ReactNode;
+  business: BusinessList;
+}) {
+  const [date, setDate] = useState<Date>(new Date());
+  const [timeSlot, setTimeSlot] = useState<Time[]>([]);
+  const [selectedTime, setSelectedTime] = useState<string>();
+  const [bookedSlot, setBookedSlot] = useState<Time[]>([]);
   const { data } = useSession();
 
+  // set the timeSlot with initial render
   useEffect(() => {
     getTime();
   }, []);
 
+  // business being passed in, then
   useEffect(() => {
     //Get Selected Date Business Booked Slot
-    if (business)
+    if (business) {
       BusinessBookedSlot(business.id, moment(date).format("DD-MMM-yyyy")).then(
         (res) => {
+          // the res is an array, which includes all booked businesses, so every setBookedSlot with add new booked business within it by set it again completely
           setBookedSlot(res.bookings);
         },
       );
-  }, [business]);
+    }
+  }, [business, date]);
 
+  // set timeSlot[] with all time, from 10:00am to 6:30pm with 30min interval
   const getTime = () => {
-    const timeList = [];
+    const timeList: Time[] = [];
     for (let i = 10; i <= 12; i++) {
       timeList.push({
         time: i + ":00 AM",
@@ -67,16 +82,15 @@ function BookingSection({ children, business }) {
       business.id,
       moment(date).format("DD-MMM-yyyy"),
       selectedTime,
-      data.user.email,
-      data.user.name,
+      data?.user?.email,
+      data?.user?.name,
     ).then(
       (res) => {
         if (res) {
-          console.log("res: ", res);
-          setDate();
+          setDate(new Date());
           setSelectedTime("");
-          toast("Service Booked successfully!");
           // Toast Msg
+          toast("Service Booked successfully!");
         }
       },
       (e) => {
@@ -86,9 +100,10 @@ function BookingSection({ children, business }) {
     );
   };
 
-  const isSlotBooked = (time) => {
-    return bookedSlot.find((item) => item.time == time);
+  const isSlotBooked = (time: string): boolean => {
+    return !!bookedSlot.find((item) => item.time === time);
   };
+
   return (
     <div>
       <Sheet>
@@ -96,19 +111,22 @@ function BookingSection({ children, business }) {
         <SheetContent className="overflow-auto">
           <SheetHeader>
             <SheetTitle>Book an Service</SheetTitle>
-            <SheetDescription as="div">
+            <SheetDescription>
               <div>Select Date and Time slot to book a service</div>
               <div className="mt-6 flex flex-col items-baseline gap-5">
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(day) => {
+                    if (day) setDate(day);
+                  }}
                   className="rounded-md border"
                 />
               </div>
               <div>
                 <h2 className="my-5 font-bold">Select Time Slot</h2>
                 <div className="grid grid-cols-3 gap-3">
+                  {/* disabled time button selection if isSlotBooked, which checks time in bookedSlot */}
                   {timeSlot.map((item, index) => (
                     <Button
                       key={index}

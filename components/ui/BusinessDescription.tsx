@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-function BusinessDescription({ business }) {
+function BusinessDescription({ business }: { business: BusinessList }) {
   return (
     business?.name && (
       <div>
