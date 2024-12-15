@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <div className="mx-6 md:mx-10">
             <Header />
+            <Toaster />
             {children}
           </div>
         </body>

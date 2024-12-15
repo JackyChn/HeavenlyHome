@@ -9,16 +9,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
-import { toast } from "sonner";
 import {
   BusinessBookedSlot,
   createNewBooking,
 } from "@/app/_services/GlobalApi";
 import moment from "moment";
+import { toast } from "sonner";
 
 function BookingSection({ children, business }) {
   const [date, setDate] = useState(new Date());
@@ -73,6 +72,7 @@ function BookingSection({ children, business }) {
     ).then(
       (res) => {
         if (res) {
+          console.log("res: ", res);
           setDate();
           setSelectedTime("");
           toast("Service Booked successfully!");
