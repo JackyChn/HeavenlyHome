@@ -63,13 +63,15 @@ export default function Header() {
             <p className="text-sm text-gray-600">
               Welcome, {session?.user?.name}
             </p>
-            <Image
-              src={session?.user?.image || "/default-avatar.png"}
-              className="rounded-full"
-              alt="avatar"
-              width={30}
-              height={30}
-            />
+            <Link href={"/mybooking"} title="my booking">
+              <Image
+                src={session?.user?.image || "/default-avatar.png"}
+                className="rounded-full"
+                alt="avatar"
+                width={30}
+                height={30}
+              />
+            </Link>
             <form
               action={signOutAction}
               className="flex items-center justify-center"
