@@ -159,6 +159,7 @@ export const GetUserBookingHistory = async (userEmail) => {
       date
       time
       id
+      bookingStatus
     }
   }
   `;
@@ -169,15 +170,11 @@ export const GetUserBookingHistory = async (userEmail) => {
 export const deleteBooking = async (bookingId) => {
   const mutationQuery = gql`
     mutation DeleteBooking {
-      updateBooking(
-        data: { userName: "RRRS" }
-        where: { id: "${bookingId}" }
-      ) {
+      deleteBooking(where: {id: "${bookingId}"}) {
         id
       }
     }
   `;
-
   const result = await request(MASTER_URL, mutationQuery);
   return result;
 };
